@@ -11,7 +11,12 @@ import UIKit
 
 public extension String {
     
-    func readJson<T>(data resource: Data, as asType: T.Type = [String: Any].self as! T.Type, completion: (T?, String?) -> Void = { _,_ in }) {
+    func readJson<T>(as asType: T.Type = [String: Any].self as! T.Type, completion: (T?, String?) -> Void = { _,_ in }) {
+        
+        guard let resource = self.data(using: .utf8) else {
+            completion(nil, "Invalid string")
+            return
+        }
         
         do {
             if let json = try JSONSerialization.jsonObject(with: resource, options: [.allowFragments, .fragmentsAllowed]) as? T {
