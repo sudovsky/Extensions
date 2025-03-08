@@ -29,6 +29,24 @@ public extension String {
         }
         
     }
+
+    func readJson<T>(as asType: T.Type = [String: Any].self as! T.Type) throws -> T {
+        
+        guard let resource = self.data(using: .utf8) else {
+            throw NSError(domain: NSOSStatusErrorDomain, code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid string"])
+        }
+        
+        do {
+            if let json = try JSONSerialization.jsonObject(with: resource, options: [.allowFragments, .fragmentsAllowed]) as? T {
+                return json
+            } else {
+                throw NSError(domain: NSOSStatusErrorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Couldn't recognize JSON"])
+            }
+        } catch {
+            throw error
+        }
+        
+    }
     
     func trim() -> String
     {
