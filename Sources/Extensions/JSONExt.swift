@@ -7,7 +7,7 @@
 
 import Foundation
 
-func load<T: Decodable>(_ data: Data, dataFromBase64String: Bool = false) -> T? {
+public func load<T: Decodable>(_ data: Data, dataFromBase64String: Bool = false) -> T? {
     
     @Sendable func customDataDecoder(decoder: Decoder) throws -> Data {
         let container = try decoder.singleValueContainer()
@@ -39,7 +39,7 @@ func load<T: Decodable>(_ data: Data, dataFromBase64String: Bool = false) -> T? 
     
 }
 
-extension Encodable {
+public extension Encodable {
     
     func toJSON() throws -> String? {
         let dateFormatter = DateFormatter()
