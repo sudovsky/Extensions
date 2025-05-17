@@ -38,11 +38,11 @@ open struct OKCancelMessage: ViewModifier {
 
 open extension View {
     
-    func okCancelMessage(showingAlert: Binding<Bool>, title: Binding<String> = .constant(""), subtitle: Binding<String?>? = nil, onOk: (() -> Void)? = nil) -> some View {
+    open func okCancelMessage(showingAlert: Binding<Bool>, title: Binding<String> = .constant(""), subtitle: Binding<String?>? = nil, onOk: (() -> Void)? = nil) -> some View {
         modifier(OKCancelMessage(showCancel: true, showingAlert: showingAlert, title: title, subtitle: subtitle ?? .constant(nil), onOk: onOk))
     }
     
-    func okMessage(showingAlert: Binding<Bool>, title: Binding<String> = .constant(""), subtitle: Binding<String?>? = nil, onOk: (() -> Void)? = nil) -> some View {
+    open func okMessage(showingAlert: Binding<Bool>, title: Binding<String> = .constant(""), subtitle: Binding<String?>? = nil, onOk: (() -> Void)? = nil) -> some View {
         modifier(OKCancelMessage(showCancel: false, showingAlert: showingAlert, title: title, subtitle: subtitle ?? .constant(nil), onOk: onOk))
     }
     
