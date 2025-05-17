@@ -25,7 +25,6 @@ struct OKCancelMessage: ViewModifier {
                     Button("Cancel", role: .cancel) { }
                 }
             } message: { if subtitle == nil { EmptyView() } else { Text(subtitle ?? "") } }
-            .alertButtonTint(color: .main)
         )
         
         func submit() {
