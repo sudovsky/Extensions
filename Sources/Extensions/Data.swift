@@ -51,4 +51,11 @@ public extension Data {
         return try Data(contentsOf: fileURL)
     }
     
+    static func removeDataFile(withName name: String) throws {
+        let tempDirectoryURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let tempDirectoryURL = tempDirectoryURLs.first!
+        let fileURL = tempDirectoryURL.appendingPathComponent(name)
+        try FileManager.default.removeItem(at: fileURL)
+    }
+
 }
