@@ -44,7 +44,7 @@ public extension Data {
         try self.write(to: fileURL)
     }
     
-    func loadDataFile(withName name: String) throws -> Data {
+    static func loadDataFile(withName name: String) throws -> Data {
         let tempDirectoryURLs = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask)
         let tempDirectoryURL = tempDirectoryURLs.first!
         let fileURL = tempDirectoryURL.appendingPathComponent(name)
