@@ -38,14 +38,14 @@ public extension Data {
     }
 
     func saveDataFile(withName name: String) throws {
-        let tempDirectoryURLs = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask)
+        let tempDirectoryURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let tempDirectoryURL = tempDirectoryURLs.first!
         let fileURL = tempDirectoryURL.appendingPathComponent(name)
         try self.write(to: fileURL)
     }
     
     static func loadDataFile(withName name: String) throws -> Data {
-        let tempDirectoryURLs = FileManager.default.urls(for: .applicationDirectory, in: .userDomainMask)
+        let tempDirectoryURLs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let tempDirectoryURL = tempDirectoryURLs.first!
         let fileURL = tempDirectoryURL.appendingPathComponent(name)
         return try Data(contentsOf: fileURL)
