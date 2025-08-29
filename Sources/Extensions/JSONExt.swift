@@ -7,7 +7,7 @@
 
 import Foundation
 
-public func load<T: Decodable>(_ data: Data, dataFromBase64String: Bool = false) -> T? {
+public func load<T: Decodable>(_ data: Data, dataFromBase64String: Bool = false) throws -> T {
     
     @Sendable func customDataDecoder(decoder: Decoder) throws -> Data {
         let container = try decoder.singleValueContainer()
@@ -22,21 +22,17 @@ public func load<T: Decodable>(_ data: Data, dataFromBase64String: Bool = false)
         return imageData
     }
 
-    do {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        if dataFromBase64String {
-            decoder.dataDecodingStrategy = .custom(customDataDecoder)
-        }
-        return try decoder.decode(T.self, from: data)
-    } catch {
-        print(error.localizedDescription)
-        return nil
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .formatted(dateFormatter)
+    if dataFromBase64String {
+        decoder.dataDecodingStrategy = .custom(customDataDecoder)
     }
     
+    return try decoder.decode(T.self, from: data)
+
 }
 
 public extension Encodable {
