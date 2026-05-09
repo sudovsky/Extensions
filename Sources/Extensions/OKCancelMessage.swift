@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OKCancelMessage: ViewModifier {
+public struct OKCancelMessage: ViewModifier {
     
     var showCancel: Bool
     @Binding var showingAlert: Bool
@@ -23,7 +23,7 @@ struct OKCancelMessage: ViewModifier {
     var onOk: (() -> Void)? = nil
     var onCancel: (() -> Void)? = nil
 
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         return AnyView(content
             .alert(title, isPresented: $showingAlert) {
                 Button(okTitle, action: submit)
@@ -43,7 +43,7 @@ struct OKCancelMessage: ViewModifier {
     }
 }
 
-extension View {
+public extension View {
     
     func okCancelMessage(showingAlert: Binding<Bool>, title: Binding<String>, subtitle: Binding<String?>? = nil, onOk: (() -> Void)? = nil) -> some View {
         modifier(OKCancelMessage(showCancel: true, showingAlert: showingAlert, title: title, subtitle: subtitle ?? .constant(nil), onOk: onOk))
